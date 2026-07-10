@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>作品交付 · Soul New Energy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+<style>
+  :root{ --accent:#d4b483; --bg:#181310; --panel:#211a15; --line:#32281f;
+    --chip-bg:#251d17; --chip-border:#392e22; --text:#f2e9dd; --muted:#a99374; --body:#ddd0bd; }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--bg); color:var(--text); font-family:-apple-system,"PingFang HK","Microsoft JhengHei",sans-serif; padding:24px 16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  .page{max-width:480px; margin:0 auto; background:var(--panel); border-radius:14px; padding:40px 26px}
+  .logo{display:block; width:76px; height:76px; border-radius:50%; object-fit:cover; margin:0 auto 18px}
+  .kicker{font-size:11px; letter-spacing:3px; color:var(--accent); text-align:center; margin-bottom:20px}
+  .title{font-family:Georgia,"Songti SC",serif; font-size:26px; text-align:center; margin-bottom:8px}
+  .sub{font-size:14px; color:var(--muted); text-align:center; line-height:1.7}
+  .rule{height:1px; background:var(--line); margin:30px 0}
+  .label{font-size:12px; letter-spacing:2px; color:var(--accent); margin-bottom:16px}
+  /* player */
+  .player{background:var(--bg); border:.5px solid var(--chip-border); border-radius:12px; padding:20px}
+  .player .ptop{display:flex; align-items:center; gap:14px}
+  .player .pp{width:46px; height:46px; border-radius:50%; background:var(--accent); border:1px solid var(--accent); display:flex; align-items:center; justify-content:center; color:var(--bg); flex-shrink:0; cursor:pointer; transition:.2s}
+  .player .pp:hover{opacity:.85}
+  .player .pp svg{margin-left:2px}
+  .player .pmeta .pt{font-size:14px; color:var(--text)}
+  .player .pmeta .pd{font-size:12px; color:var(--muted); margin-top:2px}
+  .bar{height:4px; background:var(--chip-border); border-radius:3px; margin-top:16px; cursor:pointer; position:relative}
+  .bar .fill{height:100%; width:0; background:var(--accent); border-radius:3px}
+  .time{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
+  /* downloads */
+  .dl{display:flex; align-items:center; justify-content:space-between; gap:14px; background:var(--bg); border:.5px solid var(--chip-border); border-radius:10px; padding:16px 18px; margin-bottom:12px}
+  .dl .dlmeta .dt{font-size:14px; color:var(--text)}
+  .dl .dlmeta .dd{font-size:12px; color:var(--muted); margin-top:2px}
+  .dl .dlbtn{display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:var(--bg); font-size:13px; font-weight:600; padding:9px 16px; border-radius:8px; text-decoration:none; flex-shrink:0}
+  .terms{font-size:13px; color:var(--muted); line-height:1.9}
+  .terms i{font-size:15px; margin-right:6px; vertical-align:-2px; color:var(--accent)}
+  .contact{margin-top:18px; text-align:center}
+  .contact .cnote{font-size:13px; color:var(--muted); margin-bottom:10px}
+  .clinks{display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+  .clink{display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--accent); text-decoration:none; border:.5px solid var(--line); border-radius:20px; padding:7px 14px}
+  .clink i{font-size:15px}
+  .sign{font-size:13px; color:var(--muted); text-align:center; margin-top:26px; line-height:1.6}
+  .draft{max-width:480px; margin:14px auto 0; font-size:12px; color:var(--muted); text-align:center; opacity:.7}
+  .slot{color:var(--accent)}
+  /* password gate */
+  .gate{max-width:480px; margin:0 auto; background:var(--panel); border-radius:14px; padding:40px 26px; text-align:center}
+  .gate .gnote{font-size:13px; color:var(--muted); margin:14px 0 20px; line-height:1.7}
+  .gate input{width:100%; background:var(--bg); border:1px solid var(--chip-border); border-radius:8px; padding:14px 16px; font-size:15px; color:var(--text); text-align:center; letter-spacing:1px; margin-bottom:14px}
+  .gate input:focus{outline:none; border-color:var(--accent)}
+  .gate .gbtn{width:100%; background:var(--accent); color:var(--bg); font-size:15px; font-weight:600; padding:14px; border-radius:8px; border:none; cursor:pointer}
+  .gate .gerr{font-size:12px; color:#e0a894; margin-top:12px; min-height:16px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     Fion 單（SNE-OQY2R28）· 作品交付頁 · mood cool
+     只改呢個 DATA 物件。《橙字》＝slot，客戶原話唔准改。
+     交付客戶前：刪走最底 .draft 那行。
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+const DATA = {
+  logo: "https://soulnewenergy.com/images/SNE_logo.png",
+  kicker: "SOUL NEW ENERGY ｜ 作品交付",
+  title: "為思念，寫成了一段旋律",
+  sub: "獻給每一位深深愛過、也被深深愛過的毛孩與家人",
+
+  demoHeading: "先聽一次",
+  demoTitle: "LOVE NEVER LEAVE",
+  demoDesc: "戴上耳機，給自己一段安靜的時間",
+  demoSrc: "love-never-leave-preview.mp3",
+
+  dlHeading: "你的完整檔案",
+  // 下載連結已用密碼加密（AES-GCM），唔喺 page source 明文出現。密碼另外用 WhatsApp/email 單獨畀 Fion。
+  downloadsEnc: {
+    salt: "rn9WqVboGHdXbMcP2tj82g==",
+    iv: "pbmX9N5rXQ2WNf0c",
+    ct: "5H7NfKcJ8UjgXJ3O3e6pBctp6CYyvfui6ieoKUKOOHPTjRGeAyJYBKfvR/i9/qBW3v2pfesvkWGaR7BpsP1DHpPYhyOtlg1UVlF+gCxPE0ieWXDEfUtjDATvY0230CGNyUbYAMbYiixAITR3701R2WilPetQWRw0DQ02868OAIQwJ1dAG2jBYm+QcELNpImsgD0XFFmU1psrkT0iblLvpgVaJX+LG8Qm4SxDOcXdGIuT2YQ0yO7PeYwT3BWuvPNxgiF/AQ0Iug5AF5G0EPPGqR1VBv1U1pfrAH4iRpI8GcezWMUK2cpNmIxU3gbJg7tT0knzkV5tnY37hl4pRhgErEjT2ECGATeBKgnQwwPKgnH0fYQxRu8h5fSJ19NHeumm80/IvwoM3CNYIJPs3tzh8BICHyRVPo8+/CdKmdXil4uOie84tn/rZnqEH1Dh1yAbw3vMmPcqNPg+U+4g0HkY"
+  },
+  gateTitle: "作品交付",
+  gateNote: "請輸入我們透過 WhatsApp／Email 提供給你的密碼",
+  gatePlaceholder: "密碼",
+  gateBtn: "解鎖",
+  gateErr: "密碼不正確，請再試一次",
+
+  terms: [
+    { icon: "ti-license", t: "授權：公開發佈（IG／FB／你的服務場景）" }
+  ],
+
+  contactText: "任何疑問，隨時聯絡我們",
+  whatsapp: "85267494414",
+  email: "hello@soulnewenergy.com",
+
+  sign: "Paul & Cami",
+  brand: "Soul New Energy｜心靈新能量"
+};
+</script>
+
+<div id="page"></div>
+
+<script>
+function esc(s){ return String(s).replace(/</g,"&lt;").replace(/《/g,'<span class="slot">《').replace(/》/g,'》</span>'); }
+function fmt(t){ if(isNaN(t)) return "0:00"; const m=Math.floor(t/60), s=Math.floor(t%60); return m+":"+String(s).padStart(2,"0"); }
+const playIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l10-5.5-10-5.5z"/></svg>';
+const pauseIcon = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3.2" height="11" rx="1"/><rect x="9.3" y="2.5" width="3.2" height="11" rx="1"/></svg>';
+
+function b64ToBuf(b64){ return Uint8Array.from(atob(b64), c=>c.charCodeAt(0)); }
+async function tryDecrypt(passwordRaw){
+  const password = String(passwordRaw).trim().toLowerCase();
+  const enc = DATA.downloadsEnc;
+  try{
+    const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name:"PBKDF2", salt:b64ToBuf(enc.salt), iterations:100000, hash:"SHA-256" },
+      baseKey, { name:"AES-GCM", length:256 }, false, ["decrypt"]);
+    const plainBuf = await crypto.subtle.decrypt({ name:"AES-GCM", iv:b64ToBuf(enc.iv) }, key, b64ToBuf(enc.ct));
+    return JSON.parse(new TextDecoder().decode(plainBuf));
+  }catch(e){ return null; }
+}
+
+function renderGate(){
+  document.body.setAttribute("data-mood","cool");
+  const d = DATA;
+  document.getElementById("page").innerHTML = `
+    <div class="gate">
+      <img class="logo" src="${d.logo}" alt="Soul New Energy">
+      <div class="kicker">${esc(d.kicker)}</div>
+      <div class="title">${esc(d.gateTitle)}</div>
+      <div class="gnote">${esc(d.gateNote)}</div>
+      <input type="password" id="gpw" placeholder="${esc(d.gatePlaceholder)}" autocomplete="off">
+      <button class="gbtn" id="gbtn">${esc(d.gateBtn)}</button>
+      <div class="gerr" id="gerr"></div>
+    </div>`;
+  const pw = document.getElementById("gpw"), btn = document.getElementById("gbtn"), err = document.getElementById("gerr");
+  async function attempt(){
+    err.textContent = "";
+    const downloads = await tryDecrypt(pw.value);
+    if(downloads){ sessionStorage.setItem("fion_dl", JSON.stringify(downloads)); render(downloads); }
+    else { err.textContent = d.gateErr; }
+  }
+  btn.addEventListener("click", attempt);
+  pw.addEventListener("keydown", (e)=>{ if(e.key==="Enter") attempt(); });
+}
+
+function render(downloads){
+  document.body.setAttribute("data-mood","cool");
+  const d = DATA;
+  const dls = downloads.map(x =>
+    `<div class="dl"><div class="dlmeta"><div class="dt">${esc(x.t)}</div><div class="dd">${esc(x.d)}</div></div><a class="dlbtn" href="${x.href}" target="_blank" rel="noopener"><i class="ti ti-download"></i> ${esc(x.btn)}</a></div>`).join("");
+  const terms = d.terms.map(x => `<div><i class="ti ${x.icon}"></i>${esc(x.t)}</div>`).join("");
+  document.getElementById("page").innerHTML = `
+    <div class="page">
+      <img class="logo" src="${d.logo}" alt="Soul New Energy">
+      <div class="kicker">${esc(d.kicker)}</div>
+      <div class="title">${esc(d.title)}</div>
+      <div class="sub">${esc(d.sub)}</div>
+      <div class="rule"></div>
+      <div class="label">${esc(d.demoHeading)}</div>
+      <div class="player">
+        <div class="ptop">
+          <div class="pp" id="pp">${playIcon}</div>
+          <div class="pmeta"><div class="pt">${esc(d.demoTitle)}</div><div class="pd">${esc(d.demoDesc)}</div></div>
+        </div>
+        <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
+        <div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+        <audio id="au" src="${d.demoSrc}" preload="metadata"></audio>
+      </div>
+      <div class="rule"></div>
+      <div class="label">${esc(d.dlHeading)}</div>
+      ${dls}
+      ${d.terms.length ? '<div class="rule"></div><div class="terms">'+terms+'</div>' : ''}
+      <div class="contact"><div class="cnote">${esc(d.contactText)}</div>
+        <div class="clinks">
+          <a class="clink" href="https://wa.me/${d.whatsapp}"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+          <a class="clink" href="mailto:${d.email}"><i class="ti ti-mail"></i> ${d.email}</a>
+        </div></div>
+      <div class="sign">${esc(d.sign)}<br>${esc(d.brand)}</div>
+    </div>`;
+
+  // player wiring
+  const au=document.getElementById("au"), pp=document.getElementById("pp"),
+        bar=document.getElementById("bar"), fill=document.getElementById("fill"),
+        cur=document.getElementById("cur"), dur=document.getElementById("dur");
+  au.addEventListener("loadedmetadata",()=>dur.textContent=fmt(au.duration));
+  au.addEventListener("timeupdate",()=>{ fill.style.width=(au.currentTime/au.duration*100||0)+"%"; cur.textContent=fmt(au.currentTime); });
+  au.addEventListener("ended",()=>{ pp.innerHTML=playIcon; });
+  pp.addEventListener("click",()=>{ if(au.paused){au.play(); pp.innerHTML=pauseIcon;} else {au.pause(); pp.innerHTML=playIcon;} });
+  bar.addEventListener("click",(e)=>{ const r=bar.getBoundingClientRect(); au.currentTime=(e.clientX-r.left)/r.width*au.duration; });
+}
+
+(async function init(){
+  const cached = sessionStorage.getItem("fion_dl");
+  if(cached){ render(JSON.parse(cached)); } else { renderGate(); }
+})();
+</script>
+</body>
+</html>
