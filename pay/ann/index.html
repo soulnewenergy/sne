@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>《有一盞燈》試聽與付款 · Soul New Energy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+<style>
+  :root{ --accent:#a8748c; --bg:#f7eef1; --panel:#fffbfc; --line:#ecdde3;
+    --chip-bg:#f3e6ec; --chip-border:#e4cdd8; --text:#4a3540; --muted:#a1899a; --body:#5c4552; }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--bg); color:var(--text); font-family:-apple-system,"PingFang HK","Microsoft JhengHei",sans-serif; padding:36px 16px; line-height:1.7; -webkit-font-smoothing:antialiased}
+  .page{max-width:480px; margin:0 auto; background:var(--panel); border-radius:22px; padding:52px 32px; box-shadow:0 20px 60px -20px rgba(120,90,60,.18), 0 1px 3px rgba(120,90,60,.08)}
+  .logo{display:block; width:64px; height:64px; border-radius:50%; object-fit:cover; margin:0 auto 22px; box-shadow:0 0 0 4px var(--chip-bg)}
+  .kicker{font-size:10.5px; letter-spacing:3.5px; color:var(--accent); text-align:center; margin-bottom:24px; font-weight:600}
+  .title{font-family:Georgia,"Songti SC",serif; font-size:28px; text-align:center; margin-bottom:10px; letter-spacing:.5px}
+  .sub{font-size:14px; color:var(--muted); text-align:center; line-height:1.8}
+  .rule{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:38px 0}
+  .label{font-size:11.5px; letter-spacing:2px; color:var(--accent); margin-bottom:18px; font-weight:600}
+  /* quote */
+  .quote{font-family:Georgia,"Songti SC",serif; font-size:17px; color:var(--text); text-align:center; line-height:1.9; padding:8px 6px 2px; font-style:italic}
+  .quote .qmark{color:var(--accent); font-style:normal}
+  /* player */
+  .player{background:var(--chip-bg); border:1px solid var(--chip-border); border-radius:16px; padding:22px}
+  .player .ptop{display:flex; align-items:center; gap:14px}
+  .player .pp{width:48px; height:48px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; cursor:pointer; transition:.2s; box-shadow:0 4px 12px -4px rgba(184,137,95,.5); position:relative}
+  .player .pp:hover{opacity:.88}
+  .player .pp i{font-size:21px}
+  /* CSS-drawn play triangle / pause bars so the button never renders empty while the icon webfont loads */
+  .player .pp i{position:relative; z-index:1}
+  .player .pp::before, .player .pp::after{content:""; position:absolute}
+  .player .pp:has(i.ti-player-play-filled)::before{
+    width:0; height:0; border-style:solid; border-width:8px 0 8px 13px;
+    border-color:transparent transparent transparent #fff; margin-left:3px}
+  .player .pp:has(i.ti-player-pause-filled)::before{width:5px; height:16px; background:#fff; left:16px}
+  .player .pp:has(i.ti-player-pause-filled)::after{width:5px; height:16px; background:#fff; left:27px}
+  .player .pmeta .pt{font-size:14px; color:var(--text); font-weight:600}
+  .player .pmeta .pd{font-size:12px; color:var(--muted); margin-top:2px}
+  .bar{height:4px; background:var(--chip-border); border-radius:3px; margin-top:18px; cursor:pointer; position:relative}
+  .bar .fill{height:100%; width:0; background:var(--accent); border-radius:3px}
+  .time{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
+  .demonote{display:flex; gap:8px; align-items:flex-start; margin-top:14px; padding:2px 2px 0}
+  .demonote i{font-size:15px; color:var(--accent); margin-top:1px; flex-shrink:0}
+  .demonote span{font-size:12.5px; color:var(--muted); line-height:1.7}
+  /* arc */
+  .arc{display:flex; gap:14px; align-items:flex-start; margin-bottom:18px}
+  .arc .an{width:24px; height:24px; border-radius:50%; background:var(--chip-bg); border:1px solid var(--chip-border); color:var(--accent); font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; font-variant-numeric:tabular-nums; font-weight:600}
+  .arc .at{font-size:14px; color:var(--text); font-weight:600}
+  .arc .ad{font-size:13px; color:var(--muted); line-height:1.7; margin-top:2px}
+  .arc .atime{font-size:11px; color:var(--muted); margin-left:6px; font-weight:400}
+  /* keep chips */
+  .keepwrap{display:flex; flex-wrap:wrap; gap:9px}
+  .chip{font-size:12.5px; color:var(--body); background:var(--chip-bg); border:1px solid var(--chip-border); border-radius:20px; padding:7px 14px}
+  /* includes */
+  .inc{display:flex; gap:11px; align-items:flex-start; margin-bottom:14px}
+  .inc i{font-size:16px; color:var(--accent); margin-top:2px}
+  .inc span{font-size:14px; color:var(--body); line-height:1.7}
+  /* amount */
+  .amt{background:var(--chip-bg); border:1px solid var(--chip-border); border-radius:16px; padding:26px; text-align:center}
+  .amt .k{font-size:12.5px; color:var(--muted); margin-bottom:8px; letter-spacing:.5px}
+  .amt .v{font-family:Georgia,"Songti SC",serif; font-size:36px; line-height:1.2; color:var(--text)}
+  .amt .u{font-size:13px; color:var(--muted); margin-top:6px}
+  .paywrap{text-align:center; margin-top:26px}
+  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff; font-size:15px; font-weight:600; padding:15px 44px; border-radius:30px; text-decoration:none; box-shadow:0 8px 20px -6px rgba(184,137,95,.45)}
+  .paynote{font-size:12px; color:var(--muted); margin-top:14px; line-height:1.6}
+  .terms{font-size:13px; color:var(--muted); line-height:2}
+  .terms i{font-size:15px; margin-right:7px; vertical-align:-2px; color:var(--accent)}
+  .contact{margin-top:22px; text-align:center}
+  .contact .cnote{font-size:13px; color:var(--muted); margin-bottom:12px}
+  .clinks{display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+  .clink{display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--accent); text-decoration:none; border:1px solid var(--chip-border); background:var(--chip-bg); border-radius:20px; padding:8px 15px}
+  .clink i{font-size:15px}
+  .sign{font-size:13px; color:var(--muted); text-align:center; margin-top:26px; line-height:1.6}
+  .draft{max-width:480px; margin:14px auto 0; font-size:12px; color:var(--muted); text-align:center; opacity:.7}
+  .slot{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     Ann 單（bZrEN71）· 一頁過：TEASER 試聽 + 付款 · mood warm
+     只改呢個 DATA 物件。keep 陣列＝客戶原話，一個字都唔准改。
+     ⚠️ payHref 已貼 Payhip US$288（HRGzL），可交付。
+     交付客戶前：刪走最底 .draft 那行。
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+const DATA = {
+  logo: "https://soulnewenergy.com/images/SNE_logo.png",
+  kicker: "SOUL NEW ENERGY ｜ 訂製歌曲",
+  title: "《有一盞燈》",
+  sub: "一封媽媽，寫給即將出嫁的大女兒的信",
+
+  quote: "最讓我驕傲的，不是妳有多優秀，而是妳一直都是一個有愛、有責任的人",
+
+  demoHeading: "先聽一段方向",
+  demoTitle: "方向試聽片段 · isa 的歌",
+  demoDesc: "戴上耳機，感受一下這封信的聲音方向",
+  demoNote: "這是創作方向的片段試聽，不是最終完成的作品；正式版會依這個方向，完整製作、細節打磨後交付給妳。",
+  demoSrc: "teaser.mp3",
+
+  arcHeading: "這一段，會這樣走",
+  arc: [
+    { t: "開場", d: "媽咪輕聲說起，妳要遠行的這一天", time: "0:00" },
+    { t: "副歌", d: "有燈等妳回家，有愛陪妳出發", time: "0:23" },
+    { t: "祝福", d: "願妳舒服一輩子，擁幸福一輩子", time: "1:07" }
+  ],
+
+  keepHeading: "妳的每一句話，都在裡面",
+  keep: ["媽咪", "姐姐", "isa", "善良、勇敢、堅定", "妳不是失去一個家，而是多了一個家", "家人永遠是妳最溫暖的依靠"],
+
+  planHeading: "完整版包含",
+  includes: [
+    "完整訂製歌曲一首，中英雙語",
+    "依妳的故事整理歌詞方向，含 2 輪細節修改",
+    "私人播放授權 · 交付 WAV ＋ MP3"
+  ],
+
+  amountLabel: "應付金額",
+  amount: "US$288",
+
+  payHref: "https://payhip.com/b/HRGzL",
+  payText: "前往付款",
+
+  terms: [
+    { icon: "ti-clock",   t: "付款確認後 7 個工作天內交付第一版試聽" },
+    { icon: "ti-refresh", t: "交付後含 2 輪細節修改" }
+  ],
+  contactText: "任何疑問，隨時聯絡我們",
+  whatsapp: "85267494414",
+  email: "hello@soulnewenergy.com",
+
+  sign: "Paul & Cami",
+  brand: "Soul New Energy｜心靈新能量"
+};
+</script>
+
+<div id="page"></div>
+
+<script>
+function esc(s){ return String(s).replace(/</g,"&lt;").replace(/《/g,'<span class="slot">《').replace(/》/g,'》</span>'); }
+function fmt(t){ if(isNaN(t)) return "0:00"; const m=Math.floor(t/60), s=Math.floor(t%60); return m+":"+String(s).padStart(2,"0"); }
+function render(){
+  const d = DATA;
+  const arc = d.arc.map((x,i) =>
+    `<div class="arc"><div class="an">${i+1}</div><div><div class="at">${esc(x.t)}<span class="atime">${esc(x.time)}</span></div><div class="ad">${esc(x.d)}</div></div></div>`).join("");
+  const keep = d.keep.map(x => `<span class="chip">${esc(x)}</span>`).join("");
+  const inc = d.includes.map(x => `<div class="inc"><i class="ti ti-check"></i><span>${esc(x)}</span></div>`).join("");
+  const terms = d.terms.map(x => `<div><i class="ti ${x.icon}"></i>${esc(x.t)}</div>`).join("");
+  document.getElementById("page").innerHTML = `
+    <div class="page">
+      <img class="logo" src="${d.logo}" alt="Soul New Energy">
+      <div class="kicker">${esc(d.kicker)}</div>
+      <div class="title">${esc(d.title)}</div>
+      <div class="sub">${esc(d.sub)}</div>
+      <div class="rule"></div>
+      <div class="quote"><span class="qmark">「</span>${esc(d.quote)}<span class="qmark">」</span></div>
+      <div class="rule"></div>
+      <div class="label">${esc(d.demoHeading)}</div>
+      <div class="player">
+        <div class="ptop">
+          <div class="pp" id="pp"><i class="ti ti-player-play-filled"></i></div>
+          <div class="pmeta"><div class="pt">${esc(d.demoTitle)}</div><div class="pd">${esc(d.demoDesc)}</div></div>
+        </div>
+        <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
+        <div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+        <audio id="au" src="${d.demoSrc}" preload="metadata"></audio>
+      </div>
+      <div class="demonote"><i class="ti ti-info-circle"></i><span>${esc(d.demoNote)}</span></div>
+      <div class="rule"></div>
+      <div class="label">${esc(d.arcHeading)}</div>
+      ${arc}
+      <div class="rule"></div>
+      <div class="label">${esc(d.keepHeading)}</div>
+      <div class="keepwrap">${keep}</div>
+      <div class="rule"></div>
+      <div class="label">${esc(d.planHeading)}</div>
+      ${inc}
+      <div class="rule"></div>
+      <div class="amt"><div class="k">${esc(d.amountLabel)}</div><div class="v">${esc(d.amount)}</div></div>
+      <div class="paywrap">
+        <a class="btn" href="${d.payHref}"><i class="ti ti-lock"></i> ${esc(d.payText)}</a>
+        <div class="paynote">安全付款 · 完成後我們會收到通知並與妳確認交付</div>
+      </div>
+      <div class="rule"></div>
+      <div class="terms">${terms}</div>
+      <div class="contact"><div class="cnote">${esc(d.contactText)}</div>
+        <div class="clinks">
+          <a class="clink" href="https://wa.me/${d.whatsapp}"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>
+          <a class="clink" href="mailto:${d.email}"><i class="ti ti-mail"></i> ${d.email}</a>
+        </div></div>
+      <div class="sign">${esc(d.sign)}<br>${esc(d.brand)}</div>
+    </div>`;
+
+  const au=document.getElementById("au"), pp=document.getElementById("pp"),
+        bar=document.getElementById("bar"), fill=document.getElementById("fill"),
+        cur=document.getElementById("cur"), dur=document.getElementById("dur");
+  au.addEventListener("loadedmetadata",()=>dur.textContent=fmt(au.duration));
+  au.addEventListener("timeupdate",()=>{ fill.style.width=(au.currentTime/au.duration*100||0)+"%"; cur.textContent=fmt(au.currentTime); });
+  au.addEventListener("ended",()=>{ pp.innerHTML='<i class="ti ti-player-play-filled"></i>'; });
+  pp.addEventListener("click",()=>{ if(au.paused){au.play(); pp.innerHTML='<i class="ti ti-player-pause-filled"></i>';} else {au.pause(); pp.innerHTML='<i class="ti ti-player-play-filled"></i>';} });
+  bar.addEventListener("click",(e)=>{ const r=bar.getBoundingClientRect(); au.currentTime=(e.clientX-r.left)/r.width*au.duration; });
+}
+render();
+</script>
+</body>
+</html>
