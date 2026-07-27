@@ -6,6 +6,15 @@
 <meta name="robots" content="noindex, nofollow">
 <title>《有一盞燈》試聽與付款 · Soul New Energy</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+<!-- GA4（SNE 現有 property）：只送匿名事件，唔送客戶姓名/故事 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N5WVVQL8PR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N5WVVQL8PR');
+  function track(name, extra){ try{ gtag('event', name, Object.assign({order_id:'ann-bZrEN71'}, extra||{})); }catch(e){} }
+</script>
 <style>
   :root{ --accent:#a8748c; --bg:#f7eef1; --panel:#fffbfc; --line:#ecdde3;
     --chip-bg:#f3e6ec; --chip-border:#e4cdd8; --text:#4a3540; --muted:#a1899a; --body:#5c4552; }
@@ -40,6 +49,16 @@
   .bar{height:4px; background:var(--chip-border); border-radius:3px; margin-top:18px; cursor:pointer; position:relative}
   .bar .fill{height:100%; width:0; background:var(--accent); border-radius:3px}
   .time{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums}
+  /* password gate */
+  .gate{max-width:400px; margin:8vh auto 0; background:var(--panel); border-radius:22px; padding:48px 32px; text-align:center; box-shadow:0 20px 60px -20px rgba(120,90,60,.18), 0 1px 3px rgba(120,90,60,.08)}
+  .gate .gnote{font-size:13.5px; color:var(--muted); line-height:1.8; margin:10px 0 24px}
+  .gate input{width:100%; padding:14px 16px; font-size:17px; text-align:center; letter-spacing:6px; color:var(--text);
+    background:var(--chip-bg); border:1px solid var(--chip-border); border-radius:12px; outline:none; font-family:inherit}
+  .gate input:focus{border-color:var(--accent)}
+  .gbtn{width:100%; margin-top:14px; padding:14px; font-size:15px; font-weight:600; color:#fff; background:var(--accent);
+    border:none; border-radius:30px; cursor:pointer; font-family:inherit; box-shadow:0 8px 20px -6px rgba(168,116,140,.45)}
+  .gbtn:hover{opacity:.9}
+  .gerr{font-size:13px; color:#b4485f; margin-top:14px; min-height:18px}
   .demonote{display:flex; gap:8px; align-items:flex-start; margin-top:14px; padding:2px 2px 0}
   .demonote i{font-size:15px; color:var(--accent); margin-top:1px; flex-shrink:0}
   .demonote span{font-size:12.5px; color:var(--muted); line-height:1.7}
@@ -97,7 +116,17 @@ const DATA = {
   demoTitle: "方向試聽片段 · isa 的歌",
   demoDesc: "戴上耳機，感受一下這封信的聲音方向",
   demoNote: "這是創作方向的片段試聽，不是最終完成的作品；正式版會依這個方向，完整製作、細節打磨後交付給妳。",
-  demoSrc: "teaser.mp3",
+  // teaser 檔名經 AES-GCM 加密，唔會喺 page source 明文出現；密碼同 link 一齊 email 畀 Ann
+  demoEnc: {
+    salt: "cSoBLkD3PGphcbAGAONIfg==",
+    iv: "pobBiqg7OJSkBfxx",
+    ct: "KcTI7jqtx3eLdXnOh0sHJnYYitFKprJdRlCkWAEMcK/VePgjG5eIHtJ+2sRe9HYk"
+  },
+  gateTitle: "為 isa 而做的作品",
+  gateNote: "請輸入我們在 Email 中提供給您的六位數密碼",
+  gatePlaceholder: "六位數密碼",
+  gateBtn: "開啟",
+  gateErr: "密碼不正確，請再試一次",
 
   arcHeading: "這一段，會這樣走",
   arc: [
@@ -140,7 +169,51 @@ const DATA = {
 <script>
 function esc(s){ return String(s).replace(/</g,"&lt;").replace(/《/g,'<span class="slot">《').replace(/》/g,'》</span>'); }
 function fmt(t){ if(isNaN(t)) return "0:00"; const m=Math.floor(t/60), s=Math.floor(t%60); return m+":"+String(s).padStart(2,"0"); }
-function render(){
+
+/* ── 密碼閘：teaser 檔名經 AES-GCM 加密，密碼啱先解到，直接猜 mp3 URL 都拎唔到 ── */
+function b64ToBuf(b64){ return Uint8Array.from(atob(b64), c=>c.charCodeAt(0)); }
+async function tryDecrypt(passwordRaw){
+  const enc = DATA.demoEnc;
+  try{
+    const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(String(passwordRaw).trim().toLowerCase()), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name:"PBKDF2", salt:b64ToBuf(enc.salt), iterations:100000, hash:"SHA-256" },
+      baseKey, { name:"AES-GCM", length:256 }, false, ["decrypt"]);
+    const buf = await crypto.subtle.decrypt({ name:"AES-GCM", iv:b64ToBuf(enc.iv) }, key, b64ToBuf(enc.ct));
+    return JSON.parse(new TextDecoder().decode(buf));
+  }catch(e){ return null; }
+}
+
+function renderGate(){
+  const d = DATA;
+  document.getElementById("page").innerHTML = `
+    <div class="gate">
+      <img class="logo" src="${d.logo}" alt="Soul New Energy">
+      <div class="kicker">${esc(d.kicker)}</div>
+      <div class="title">${esc(d.gateTitle)}</div>
+      <div class="gnote">${esc(d.gateNote)}</div>
+      <input type="text" inputmode="numeric" id="gpw" placeholder="${esc(d.gatePlaceholder)}" autocomplete="off" maxlength="6">
+      <button class="gbtn" id="gbtn">${esc(d.gateBtn)}</button>
+      <div class="gerr" id="gerr"></div>
+    </div>`;
+  const pw=document.getElementById("gpw"), btn=document.getElementById("gbtn"), err=document.getElementById("gerr");
+  pw.focus();
+  async function attempt(){
+    err.textContent="";
+    const got = await tryDecrypt(pw.value);
+    if(got && got.audio){
+      sessionStorage.setItem("ann_audio", got.audio);
+      track('unlock');
+      render(got.audio);
+    } else {
+      err.textContent = d.gateErr;
+      track('unlock_fail');
+    }
+  }
+  btn.addEventListener("click", attempt);
+  pw.addEventListener("keydown", e=>{ if(e.key==="Enter") attempt(); });
+}
+function render(audioName){
   const d = DATA;
   const arc = d.arc.map((x,i) =>
     `<div class="arc"><div class="an">${i+1}</div><div><div class="at">${esc(x.t)}<span class="atime">${esc(x.time)}</span></div><div class="ad">${esc(x.d)}</div></div></div>`).join("");
@@ -164,7 +237,7 @@ function render(){
         </div>
         <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
         <div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
-        <audio id="au" src="${d.demoSrc}" preload="metadata"></audio>
+        <audio id="au" src="${audioName}" preload="metadata"></audio>
       </div>
       <div class="demonote"><i class="ti ti-info-circle"></i><span>${esc(d.demoNote)}</span></div>
       <div class="rule"></div>
@@ -179,7 +252,7 @@ function render(){
       <div class="rule"></div>
       <div class="amt"><div class="k">${esc(d.amountLabel)}</div><div class="v">${esc(d.amount)}</div></div>
       <div class="paywrap">
-        <a class="btn" href="${d.payHref}"><i class="ti ti-lock"></i> ${esc(d.payText)}</a>
+        <a class="btn" href="${d.payHref}" onclick="track('pay_click')"><i class="ti ti-lock"></i> ${esc(d.payText)}</a>
         <div class="paynote">安全付款 · 完成後我們會收到通知並與妳確認交付</div>
       </div>
       <div class="rule"></div>
@@ -198,10 +271,13 @@ function render(){
   au.addEventListener("loadedmetadata",()=>dur.textContent=fmt(au.duration));
   au.addEventListener("timeupdate",()=>{ fill.style.width=(au.currentTime/au.duration*100||0)+"%"; cur.textContent=fmt(au.currentTime); });
   au.addEventListener("ended",()=>{ pp.innerHTML='<i class="ti ti-player-play-filled"></i>'; });
-  pp.addEventListener("click",()=>{ if(au.paused){au.play(); pp.innerHTML='<i class="ti ti-player-pause-filled"></i>';} else {au.pause(); pp.innerHTML='<i class="ti ti-player-play-filled"></i>';} });
+  pp.addEventListener("click",()=>{ if(au.paused){ track('play'); au.play(); pp.innerHTML='<i class="ti ti-player-pause-filled"></i>';} else {au.pause(); pp.innerHTML='<i class="ti ti-player-play-filled"></i>';} });
   bar.addEventListener("click",(e)=>{ const r=bar.getBoundingClientRect(); au.currentTime=(e.clientX-r.left)/r.width*au.duration; });
 }
-render();
+/* 入口：已解鎖過（同一 session）就直接開，否則出密碼閘 */
+track('page_view');
+const _cached = sessionStorage.getItem("ann_audio");
+if(_cached){ render(_cached); } else { renderGate(); }
 </script>
 </body>
 </html>
