@@ -13,7 +13,16 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-N5WVVQL8PR');
-  function track(name, extra){ try{ gtag('event', name, Object.assign({order_id:'ann-bZrEN71'}, extra||{})); }catch(e){} }
+  // GA4（統計）＋ beacon 打去 for.soulnewenergy.com（每個事件第一次即刻 email 通知 hello@）
+  function track(name, extra){
+    try{ gtag('event', name, Object.assign({order_id:'ann-bZrEN71'}, extra||{})); }catch(e){}
+    try{
+      navigator.sendBeacon(
+        'https://for.soulnewenergy.com/api/track',
+        new Blob([JSON.stringify({id:'ann-bZrEN71', event:name})], {type:'text/plain'})
+      );
+    }catch(e){}
+  }
 </script>
 <style>
   :root{ --accent:#a8748c; --bg:#f7eef1; --panel:#fffbfc; --line:#ecdde3;
