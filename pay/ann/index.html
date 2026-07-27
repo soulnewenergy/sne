@@ -13,14 +13,17 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-N5WVVQL8PR');
-  // GA4（統計）＋ beacon 打去 for.soulnewenergy.com（每個事件第一次即刻 email 通知 hello@）
+  // GA4（統計）＋ ping 打去 for.soulnewenergy.com（每個事件第一次即刻 email 通知 hello@）
+  // ⚠️ 用 fetch keepalive 唔用 navigator.sendBeacon：實測 sendBeacon 同含 "track" 嘅路徑
+  //    會俾廣告攔截器 ERR_BLOCKED_BY_CLIENT 擋，fetch + 中性路徑先入到。
   function track(name, extra){
     try{ gtag('event', name, Object.assign({order_id:'ann-bZrEN71'}, extra||{})); }catch(e){}
     try{
-      navigator.sendBeacon(
-        'https://for.soulnewenergy.com/api/track',
-        new Blob([JSON.stringify({id:'ann-bZrEN71', event:name})], {type:'text/plain'})
-      );
+      fetch('https://for.soulnewenergy.com/api/n', {
+        method:'POST', mode:'no-cors', keepalive:true,
+        headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify({id:'ann-bZrEN71', event:name})
+      }).catch(function(){});
     }catch(e){}
   }
 </script>
