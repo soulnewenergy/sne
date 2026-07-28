@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>《有一盞燈》試聽與付款 · Soul New Energy</title>
+<title>Soul New Energy · 私人頁面</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
 <!-- GA4（SNE 現有 property）：只送匿名事件，唔送客戶姓名/故事 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N5WVVQL8PR"></script>
@@ -116,63 +116,25 @@
      交付客戶前：刪走最底 .draft 那行。
      ═══════════════════════════════════════════════════════════════ -->
 <script>
-const DATA = {
-  logo: "https://soulnewenergy.com/images/SNE_logo.png",
-  kicker: "SOUL NEW ENERGY ｜ 訂製歌曲",
-  title: "《有一盞燈》",
-  sub: "一封媽媽，寫給即將出嫁的大女兒的信",
+let DATA = null; // 解鎖後由加密 payload 填入
 
-  quote: "最讓我驕傲的，不是妳有多優秀，而是妳一直都是一個有愛、有責任的人",
+// 公開部分：只夠畫密碼閘，唔含任何客戶資料
+const PUB = {
+  logo: 'https://soulnewenergy.com/images/SNE_logo.png',
+  kicker: 'SOUL NEW ENERGY ｜ 訂製歌曲',
+  gateTitle: '為妳而做的作品',
+  gateNote: '請輸入我們在 Email 中提供給您的六位數密碼',
+  gatePlaceholder: '六位數密碼',
+  gateBtn: '開啟',
+  gateErr: '密碼不正確，請再試一次'
+};
 
-  demoHeading: "先聽一段方向",
-  demoTitle: "方向試聽片段 · isa 的歌",
-  demoDesc: "戴上耳機，感受一下這封信的聲音方向",
-  demoNote: "這是創作方向的片段試聽，不是最終完成的作品；正式版會依這個方向，完整製作、細節打磨後交付給妳。",
-  // teaser 檔名經 AES-GCM 加密，唔會喺 page source 明文出現；密碼同 link 一齊 email 畀 Ann
-  demoEnc: {
-    salt: "cSoBLkD3PGphcbAGAONIfg==",
-    iv: "pobBiqg7OJSkBfxx",
-    ct: "KcTI7jqtx3eLdXnOh0sHJnYYitFKprJdRlCkWAEMcK/VePgjG5eIHtJ+2sRe9HYk"
-  },
-  gateTitle: "為 isa 而做的作品",
-  gateNote: "請輸入我們在 Email 中提供給您的六位數密碼",
-  gatePlaceholder: "六位數密碼",
-  gateBtn: "開啟",
-  gateErr: "密碼不正確，請再試一次",
-
-  arcHeading: "這一段，會這樣走",
-  arc: [
-    { t: "開場", d: "媽咪輕聲說起，妳要遠行的這一天", time: "0:00" },
-    { t: "副歌", d: "有燈等妳回家，有愛陪妳出發", time: "0:23" },
-    { t: "祝福", d: "願妳舒服一輩子，擁幸福一輩子", time: "1:07" }
-  ],
-
-  keepHeading: "妳的每一句話，都在裡面",
-  keep: ["媽咪", "姐姐", "isa", "善良、勇敢、堅定", "妳不是失去一個家，而是多了一個家", "家人永遠是妳最溫暖的依靠"],
-
-  planHeading: "完整版包含",
-  includes: [
-    "完整訂製歌曲一首，中英雙語",
-    "依妳的故事整理歌詞方向，含 2 輪細節修改",
-    "私人播放授權 · 交付 WAV ＋ MP3"
-  ],
-
-  amountLabel: "應付金額",
-  amount: "US$288",
-
-  payHref: "https://payhip.com/b/HRGzL",
-  payText: "前往付款",
-
-  terms: [
-    { icon: "ti-clock",   t: "付款確認後 7 個工作天內交付第一版試聽" },
-    { icon: "ti-refresh", t: "交付後含 2 輪細節修改" }
-  ],
-  contactText: "任何疑問，隨時聯絡我們",
-  whatsapp: "85267494414",
-  email: "hello@soulnewenergy.com",
-
-  sign: "Paul & Cami",
-  brand: "Soul New Energy｜心靈新能量"
+// 私隱：客戶原話／故事／方向／報價全部經 AES-GCM(PBKDF2 100k, SHA-256) 加密，
+// 公開 repo 嘅 page source 睇唔到明文；密碼同 link 一齊 email 畀客戶。
+const ENC = {
+  "salt": "uGKGumZIKpl+hbzFGBOP+g==",
+  "iv": "vKR5pCiPIHwhwXOH",
+  "ct": "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"
 };
 </script>
 
@@ -185,7 +147,7 @@ function fmt(t){ if(isNaN(t)) return "0:00"; const m=Math.floor(t/60), s=Math.fl
 /* ── 密碼閘：teaser 檔名經 AES-GCM 加密，密碼啱先解到，直接猜 mp3 URL 都拎唔到 ── */
 function b64ToBuf(b64){ return Uint8Array.from(atob(b64), c=>c.charCodeAt(0)); }
 async function tryDecrypt(passwordRaw){
-  const enc = DATA.demoEnc;
+  const enc = ENC;
   try{
     const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(String(passwordRaw).trim().toLowerCase()), "PBKDF2", false, ["deriveKey"]);
     const key = await crypto.subtle.deriveKey(
@@ -197,7 +159,7 @@ async function tryDecrypt(passwordRaw){
 }
 
 function renderGate(){
-  const d = DATA;
+  const d = PUB;
   document.getElementById("page").innerHTML = `
     <div class="gate">
       <img class="logo" src="${d.logo}" alt="Soul New Energy">
@@ -214,7 +176,8 @@ function renderGate(){
     err.textContent="";
     const got = await tryDecrypt(pw.value);
     if(got && got.audio){
-      sessionStorage.setItem("ann_audio", got.audio);
+      DATA = Object.assign({}, PUB, got);
+      sessionStorage.setItem("ann_data", JSON.stringify(got));
       track('unlock');
       render(got.audio);
     } else {
@@ -288,8 +251,9 @@ function render(audioName){
 }
 /* 入口：已解鎖過（同一 session）就直接開，否則出密碼閘 */
 track('page_view');
-const _cached = sessionStorage.getItem("ann_audio");
-if(_cached){ render(_cached); } else { renderGate(); }
+const _cached = sessionStorage.getItem("ann_data");
+if(_cached){ try{ DATA = Object.assign({}, PUB, JSON.parse(_cached)); render(DATA.audio); }catch(e){ renderGate(); } }
+else { renderGate(); }
 </script>
 </body>
 </html>
